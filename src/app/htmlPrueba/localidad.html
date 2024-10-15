@@ -1,0 +1,169 @@
+<!-- Crear Nuevo Evento -->
+<div class="crear-evento">
+    <h2>Crear Nuevo Evento</h2>
+    <form [formGroup]="eventoForm" (ngSubmit)="guardarEvento()">
+      <!-- Campo: Nombre del Evento -->
+      <div class="form-group">
+        <label for="nombreEvento">Nombre del Evento:</label>
+        <input id="nombreEvento" formControlName="nombre" type="text" required />
+      </div>
+  
+      <!-- Campo: Descripción -->
+      <div class="form-group">
+        <label for="descripcionEvento">Descripción:</label>
+        <textarea id="descripcionEvento" formControlName="descripcion" rows="3" required></textarea>
+      </div>
+  
+      <!-- Campo: Tipo de Evento -->
+      <div class="form-group">
+        <label for="tipoEvento">Tipo de Evento:</label>
+        <select id="tipoEvento" formControlName="tipo">
+          <option value="Concierto">Concierto</option>
+          <option value="Teatro">Teatro</option>
+          <option value="Conferencia">Conferencia</option>
+          <!-- Agregar más opciones según sea necesario -->
+        </select>
+      </div>
+  
+      <!-- Campo: Ciudad -->
+      <div class="form-group">
+        <label for="ciudadEvento">Ciudad:</label>
+        <input id="ciudadEvento" formControlName="ciudad" type="text" required />
+      </div>
+  
+      <!-- Campo: Dirección -->
+      <div class="form-group">
+        <label for="direccionEvento">Dirección:</label>
+        <input id="direccionEvento" formControlName="direccion" type="text" required />
+      </div>
+  
+      <!-- Campo: Fecha -->
+      <div class="form-group">
+        <label for="fechaEvento">Fecha:</label>
+        <input id="fechaEvento" formControlName="fecha" type="date" required />
+      </div>
+  
+      <!-- Campo: Póster del Evento -->
+      <div class="form-group">
+        <label for="posterEvento">Póster del Evento:</label>
+        <input id="posterEvento" type="file" (change)="onFileSelected($event, 'poster')" />
+      </div>
+  
+      <!-- Campo: Distribución de Localidades -->
+      <div class="form-group">
+        <label for="distribucionLocalidades">Distribución de Localidades:</label>
+        <input id="distribucionLocalidades" type="file" (change)="onFileSelected($event, 'distribucion')" />
+      </div>
+  
+      <!-- Sección de Localidades -->
+      <div class="localidades-section">
+        <h3>Localidades</h3>
+        <form [formGroup]="localidadForm" (ngSubmit)="agregarLocalidad()">
+          <div class="form-group">
+            <label for="nombreLocalidad">Nombre de la Localidad:</label>
+            <input id="nombreLocalidad" formControlName="nombre" type="text" required />
+          </div>
+          <div class="form-group">
+            <label for="precioLocalidad">Precio:</label>
+            <input id="precioLocalidad" formControlName="precio" type="number" min="0" required />
+          </div>
+          <div class="form-group">
+            <label for="capacidadLocalidad">Capacidad Máxima:</label>
+            <input id="capacidadLocalidad" formControlName="capacidad" type="number" min="1" required />
+          </div>
+          <button type="submit" class="btn-add-localidad">Añadir Localidad</button>
+        </form>
+  
+        <!-- Lista de Localidades Agregadas -->
+        <div *ngIf="localidades.length > 0">
+          <h4>Localidades Añadidas:</h4>
+          <ul>
+            <li *ngFor="let loc of localidades">
+               VIP  - Precio: 200.000  - Capacidad:  100
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <!-- Botones de Acción -->
+      <div class="form-actions">
+        <button type="submit" class="btn-guardar">Guardar Evento</button>
+        <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
+  <!-- Estilos CSS -->
+  <style>
+    .crear-evento {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  
+    .localidades-section {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+  
+    .btn-add-localidad,
+    .btn-guardar,
+    .btn-cancelar {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  
+    .btn-add-localidad {
+      background-color: #28a745;
+      color: white;
+    }
+  
+    .btn-guardar {
+      background-color: #007bff;
+      color: white;
+    }
+  
+    .btn-cancelar {
+      background-color: #dc3545;
+      color: white;
+      margin-left: 10px;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+  
+    li {
+      padding: 5px 0;
+    }
+  </style>
+  

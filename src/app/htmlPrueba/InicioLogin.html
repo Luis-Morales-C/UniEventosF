@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio - UniEventos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #98d5c0, #2d3f38);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        .form-container {
+            width: 45%;
+            background-color: #2a2b38;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffeba7;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        label {
+            color: #ffeba7;
+            margin-top: 10px;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #1f2029;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #1f2029;
+            color: #d3d3d3;
+        }
+
+        .button-3d {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #ffeba7;
+            color: #2a2b38;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .button-3d:hover {
+            background-color: #2a2b38;
+            color: #ffeba7;
+        }
+
+        .button-3d:active {
+            transform: rotateY(360deg);
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .forgot-password a {
+            color: #ffeba7;
+            text-decoration: none;
+            font-size: 0.8em;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sección de Iniciar Sesión -->
+        <div class="form-container">
+            <h2>Ingresar</h2>
+            <form class="login-form">
+                <label for="login-email">Correo:</label>
+                <input type="email" id="login-email" name="email" required>
+
+                <label for="login-password">Contraseña:</label>
+                <input type="password" id="login-password" name="password" required>
+
+                <button type="submit" class="button-3d">Ingresar</button>
+
+                <div class="forgot-password">
+                    <a href="#">¿Se te olvidó tu contraseña?</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sección de Registro -->
+        <div class="form-container">
+            <h2>Registrarse</h2>
+            <form class="register-form">
+                <label for="cedula">Cédula:</label>
+                <input type="text" id="cedula" name="cedula" required>
+                
+                <label for="nombreCompleto">Nombre completo:</label>
+                <input type="text" id="nombreCompleto" name="nombreCompleto" required>
+                
+                <label for="direccion">Dirección de residencia:</label>
+                <input type="text" id="direccion" name="direccion" required>
+                
+                <label for="telefono">Número de teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+                
+                <label for="register-email">Correo electrónico:</label>
+                <input type="email" id="register-email" name="email" required>
+                
+                <label for="register-password">Contraseña:</label>
+                <input type="password" id="register-password" name="password" required>
+                
+                <label for="confirm-password">Confirmar contraseña:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                
+                <button type="submit" class="button-3d">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

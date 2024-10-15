@@ -1,0 +1,140 @@
+<!-- Administración de Eventos -->
+<div class="administracion-eventos">
+    <h2>Administración de Eventos</h2>
+    <button class="btn-crear-evento">Crear Nuevo Evento</button>
+  
+    <!-- Tabla de Eventos con Localidades -->
+    <h3>Lista de Eventos</h3>
+    <table class="tabla-eventos">
+      <thead>
+        <tr>
+          <th>Nombre del Evento</th>
+          <th>Ciudad</th>
+          <th>Fecha</th>
+          <th>Tipo</th>
+          <th>Localidades</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Evento 1 -->
+        <tr>
+          <td>Andrés Cepeda - Nuestra Vida en Canciones Tour</td>
+          <td>Pereira</td>
+          <td>20/09/2024</td>
+          <td>Concierto</td>
+          <td>
+            <ul>
+              <li>General - Precio: $50,000 - Capacidad: 1000</li>
+              <li>VIP - Precio: $150,000 - Capacidad: 500</li>
+            </ul>
+          </td>
+          <td class="acciones">
+            <button class="btn-editar">Editar</button>
+            <button class="btn-eliminar">Eliminar</button>
+          </td>
+        </tr>
+  
+        <!-- Evento 2 -->
+        <tr>
+          <td>Otro Evento</td>
+          <td>Bogotá</td>
+          <td>15/10/2024</td>
+          <td>Teatro</td>
+          <td>
+            <ul>
+              <li>Palco - Precio: $200,000 - Capacidad: 300</li>
+              <li>Preferencial - Precio: $100,000 - Capacidad: 600</li>
+            </ul>
+          </td>
+          <td class="acciones">
+            <button class="btn-editar">Editar</button>
+            <button class="btn-eliminar">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Estilos CSS -->
+  <style>
+    .administracion-eventos {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f7f7f7;
+    }
+  
+    h2 {
+      color: #5ba34c;
+      text-align: center;
+    }
+  
+    .btn-crear-evento {
+      display: block;
+      margin: 10px 0;
+      padding: 8px 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+  
+    th {
+      background-color: #5ba34c;
+      color: white;
+      padding: 10px;
+      text-align: left;
+    }
+  
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      vertical-align: top;
+    }
+  
+    .acciones {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .btn-editar,
+    .btn-eliminar {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    .btn-editar {
+      background-color: #007bff;
+      color: white;
+    }
+  
+    .btn-eliminar {
+      background-color: #dc3545;
+      color: white;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    ul li {
+      padding: 2px 0;
+    }
+  </style>
+  
