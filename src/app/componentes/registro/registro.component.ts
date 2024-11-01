@@ -19,11 +19,16 @@ export class RegistroComponent {
   public registrar() {
     console.log(this.registroForm.value);
  }
+ 
  passwordsMatchValidator(formGroup: FormGroup) {
   const password = formGroup.get('password')?.value;
   const confirmaPassword = formGroup.get('confirmaPassword')?.value;
+ 
+ 
+  // Si las contraseñas no coinciden, devuelve un error, de lo contrario, null
   return password == confirmaPassword ? null : { passwordsMismatch: true };
  }
+ 
  
  
 
@@ -34,11 +39,12 @@ export class RegistroComponent {
       email: ['', [Validators.required, Validators.email]],
       direccion: ['', [Validators.required]],
       telefono: ['', [Validators.required, Validators.maxLength(10)]],
-      password: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(30)]]
+      password: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]],
+      confirmaPassword: ['',[Validators.required, Validators.maxLength(10), Validators.minLength(7)]]
     },
     { validators: this.passwordsMatchValidator } as AbstractControlOptions
   );
-}
-}
+ }
+} 
 
 
