@@ -22,6 +22,7 @@ export class GestionEventosComponent {
  constructor(public eventosService:EventosService) {
    this.eventos = eventosService.listar();
  }
+ 
 
  public seleccionar(evento: EventoDTO, estado: boolean) {
 
