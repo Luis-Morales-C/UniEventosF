@@ -1,1 +1,23 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" novalidate>
+    <div>
+      <label>Email:</label>
+      <input type="email" formControlName="email" />
+      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        <small *ngIf="loginForm.get('email')?.errors?.['required']">El email es requerido</small>
+        <small *ngIf="loginForm.get('email')?.errors?.['email']">El email no es válido</small>
+      </div>
+    </div>
+    
+    <div>
+      <label>Contraseña:</label>
+      <input type="password" formControlName="password" />
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <small *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es requerida</small>
+        <small *ngIf="loginForm.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 7 caracteres</small>
+        <small *ngIf="loginForm.get('password')?.errors?.['maxlength']">La contraseña no debe exceder los 10 caracteres</small>
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="loginForm.invalid">Iniciar sesión</button>
+  </form>
+  
