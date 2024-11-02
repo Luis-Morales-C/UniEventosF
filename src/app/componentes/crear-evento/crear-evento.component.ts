@@ -23,6 +23,10 @@ export class CrearEventoComponent {
      console.log(this.crearEventoForm.value);
    }
 
+   trackByFn(index: number, item: string): any {
+    return item;
+  }
+
    private crearFormulario() {
      this.crearEventoForm = this.formBuilder.group({
        nombre: ['', [Validators.required, Validators.minLength(10),Validators.maxLength(50)]],
