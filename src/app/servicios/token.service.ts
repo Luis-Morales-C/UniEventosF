@@ -2,90 +2,77 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Buffer } from 'buffer';
 
-
 const TOKEN_KEY = "AuthToken";
 
-
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class TokenService {
 
+  constructor(private router: Router) {}
 
-    constructor(private router: Router) { }
+  public setToken(token: string): void {
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.setItem(TOKEN_KEY, token);
+  }
 
-    public setToken(tokesessionStoragen: string) {
-        window.sessionStorage.removeItem(TOKEN_KEY);
-        window.sessionStorage.setItem(TOKEN_KEY, tokesessionStoragen);
+  public getToken(): string | null {
+    return sessionStorage.getItem(TOKEN_KEY);
+  }
+
+  public isLogged(): boolean {
+    return this.getToken() !== null;
+  }
+
+  public login(token: string): void {
+    this.setToken(token);
+    const rol = this.getRol();
+    const destino = rol === "ADMINISTRADOR" ? "/home-admin" : "/home-cliente";
+    this.router.navigate([destino]);
+  }
+
+  public logout(): void {
+    window.sessionStorage.clear();
+    this.router.navigate(["/login"]);
+  }
+
+  private decodePayload(token: string): any {
+    try {
+      const payload = token.split(".")[1];
+      const payloadDecoded = Buffer.from(payload, 'base64').toString('ascii');
+      return JSON.parse(payloadDecoded);
+    } catch (error) {
+      console.error("Error decoding token payload:", error);
+      return null;
     }
+  }
 
-    public getToken(): string | null {
-        return sessionStorage.getItem(TOKEN_KEY);
+  public getIDCuenta(): string {
+    const token = this.getToken();
+    if (token) {
+      const values = this.decodePayload(token);
+      return values?.id || '';
     }
+    return '';
+  }
 
-    public isLogged(): boolean {
-        if (this.getToken()) {
-            return true;
-        }
-        return false;
+  public getRol(): string {
+    const token = this.getToken();
+    if (token) {
+      const values = this.decodePayload(token);
+      return values?.rol || '';
     }
+    return '';
+  }
 
-    public login(token: string) {
-        this.setToken(token);
-        const rol = this.getRol();
-        let destino = rol == "ADMINISTRADOR" ? "/home-admin" : "/home-cliente";
-        this.router.navigate([destino]).then(() => {
-          window.location.reload();
-        });
-       }
-       
-
-    public logout() {
-        window.sessionStorage.clear();
-        this.router.navigate(["/login"]).then(() => {
-          window.location.reload();
-        });
+  public getEmail(): string {
+    const token = this.getToken();
+    if (token) {
+      const values = this.decodePayload(token);
+      return values?.sub || '';
     }
-       
-    private decodePayload(token: string): any {
-        const payload = token!.split(".")[1];
-        const payloadDecoded = Buffer.from(payload, 'base64').toString('ascii');
-        const values = JSON.parse(payloadDecoded);
-        return values;
-    }
-    public getIDCuenta(): string {
-        const token = this.getToken();
-        if (token) {
-            const values = this.decodePayload(token);
-            return values.id;
-        }
-        return "";
-    }
-
-
-    public getRol(): string {
-        const token = this.getToken();
-        if (token) {
-          const values = this.decodePayload(token);
-          return values.rol;
-        }
-        return "";
-       }
-       
-
-    public getEmail(): string {
-        const token = this.getToken();
-        if (token) {
-          const values = this.decodePayload(token);
-          return values.sub;
-        }
-        return "";
-       }
-       
-
-       
-       
-
+    return '';
+  }
 }
 
 

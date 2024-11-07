@@ -8,12 +8,9 @@ import { TokenService } from '../servicios/token.service';
 })
 export class RolesService {
 
-
  realRole: string = "";
 
-
  constructor(private tokenService: TokenService, private router: Router) { }
-
 
  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
@@ -31,19 +28,7 @@ export class RolesService {
    return true;
  }
 
-
 }
-
-
 export const RolesGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
  return inject(RolesService).canActivate(next, state);
 }
-public getRol(): string {
-  const token = this.getToken();
-  if (token) {
-    const values = this.decodePayload(token);
-    return values.rol;
-  }
-  return "";
- }
- 
