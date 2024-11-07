@@ -6,13 +6,13 @@
       </h5>
     </div>
     <div class="card-body p-4">
-      <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" novalidate class="row g-3">
+      <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate class="row g-3">
         <div class="col-12">
-          <label for="email" class="form-label">Email:</label>
-          <input type="email" formControlName="email" class="form-control" id="email" />
-          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
-            <small *ngIf="loginForm.get('email')?.errors?.['required']">El email es requerido</small>
-            <small *ngIf="loginForm.get('email')?.errors?.['email']">El email no es válido</small>
+          <label for="correo" class="form-label">Email:</label>
+          <input type="email" formControlName="correo" class="form-control" id="correo" /> 
+          <div *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched" class="text-danger">
+            <small *ngIf="loginForm.get('correo')?.errors?.['required']">El email es requerido</small>
+            <small *ngIf="loginForm.get('correo')?.errors?.['email']">El email no es válido</small>
           </div>
         </div>
 

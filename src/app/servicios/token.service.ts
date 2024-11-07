@@ -16,7 +16,7 @@ export class TokenService {
 
     public setToken(tokesessionStoragen: string) {
         window.sessionStorage.removeItem(TOKEN_KEY);
-        window.sessionStorage.setItem(TOKEN_KEY, token);
+        window.sessionStorage.setItem(TOKEN_KEY, tokesessionStoragen);
     }
 
     public getToken(): string | null {
@@ -29,15 +29,24 @@ export class TokenService {
         }
         return false;
     }
+
     public login(token: string) {
         this.setToken(token);
-        this.router.navigate(["/"]);
-    }
+        const rol = this.getRol();
+        let destino = rol == "ADMINISTRADOR" ? "/home-admin" : "/home-cliente";
+        this.router.navigate([destino]).then(() => {
+          window.location.reload();
+        });
+       }
+       
 
     public logout() {
         window.sessionStorage.clear();
-        this.router.navigate(["/login"]);
+        this.router.navigate(["/login"]).then(() => {
+          window.location.reload();
+        });
     }
+       
     private decodePayload(token: string): any {
         const payload = token!.split(".")[1];
         const payloadDecoded = Buffer.from(payload, 'base64').toString('ascii');
@@ -57,11 +66,25 @@ export class TokenService {
     public getRol(): string {
         const token = this.getToken();
         if (token) {
-            const values = this.decodePayload(token);
-            return values.rol;
+          const values = this.decodePayload(token);
+          return values.rol;
         }
         return "";
-    }
+       }
+       
+
+    public getEmail(): string {
+        const token = this.getToken();
+        if (token) {
+          const values = this.decodePayload(token);
+          return values.sub;
+        }
+        return "";
+       }
+       
+
+       
+       
 
 }
 

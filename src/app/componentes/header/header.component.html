@@ -15,9 +15,12 @@
       </ul>
    
    
-      <div class="col-md-3 text-end">
+      <div class="col-md-3 d-flex text-end align-items-center">
+        @if (!isLogged) {
         <button type="button" routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
         <button type="button" routerLink="/registro" class="btn btn-primary">Registro</button>
-      </div>
-    </header>
-   </div>
+        }@else {
+        <label class="me-3">Hola {{email}}</label>
+        <button type="button" (click)="logout()" class="btn btn-primary ">Logout</button>
+        }
+</div>

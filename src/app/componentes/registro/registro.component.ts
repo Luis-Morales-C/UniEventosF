@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../../servicios/auth.service';
 import { CrearCuentaDTO } from '../../dto/crear-cuenta-dto';
 import Swal from 'sweetalert2';
@@ -21,6 +21,9 @@ export class RegistroComponent {
 
   public registrar() {
     const crearCuenta = this.registroForm.value as CrearCuentaDTO;
+  
+    crearCuenta.telefonos = crearCuenta.telefonos.map((telefono: any) => telefono.numero);
+  
     this.authService.crearCuenta(crearCuenta).subscribe({
       next: (data) => {
         Swal.fire({
@@ -28,7 +31,7 @@ export class RegistroComponent {
           text: 'La cuenta se ha creado correctamente',
           icon: 'success',
           confirmButtonText: 'Aceptar'
-        })
+        });
       },
       error: (error) => {
         Swal.fire({
@@ -36,18 +39,16 @@ export class RegistroComponent {
           text: error.error.respuesta,
           icon: 'error',
           confirmButtonText: 'Aceptar'
-        })
+        });
       }
     });
-
   }
+  
 
   passwordsMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password')?.value;
     const confirmaPassword = formGroup.get('confirmaPassword')?.value;
 
-
-    // Si las contraseñas no coinciden, devuelve un error, de lo contrario, null
     return password == confirmaPassword ? null : { passwordsMismatch: true };
   }
 
@@ -60,13 +61,33 @@ export class RegistroComponent {
       nombre: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       direccion: ['', [Validators.required]],
-      telefono: ['', [Validators.required, Validators.maxLength(10)]],
+      telefonos: this.formBuilder.array([this.crearTelefono()], [Validators.required]),
       password: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]],
       confirmaPassword: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]]
     },
       { validators: this.passwordsMatchValidator } as AbstractControlOptions
     );
   }
+
+private crearTelefono(): FormGroup {
+  return this.formBuilder.group({
+    numero: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]]
+  });
+}
+
+
+get telefonos(): FormArray {
+  return this.registroForm.get('telefonos') as FormArray;
+}
+
+
+public agregarTelefono() {
+  this.telefonos.push(this.crearTelefono());
+}
+
+public eliminarTelefono(indice: number) {
+  this.telefonos.removeAt(indice);
+}
 }
 
 
