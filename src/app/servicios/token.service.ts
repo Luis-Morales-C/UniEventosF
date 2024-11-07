@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { Buffer } from 'buffer';
 
 const TOKEN_KEY = "AuthToken";
@@ -8,12 +9,13 @@ const TOKEN_KEY = "AuthToken";
   providedIn: 'root'
 })
 export class TokenService {
+  private authStatus$ = new BehaviorSubject<boolean>(this.isLogged());
 
   constructor(private router: Router) {}
 
   public setToken(token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
+    this.authStatus$.next(true); 
   }
 
   public getToken(): string | null {
@@ -33,6 +35,7 @@ export class TokenService {
 
   public logout(): void {
     window.sessionStorage.clear();
+    this.authStatus$.next(false);  // Emitir estado no autenticado
     this.router.navigate(["/login"]);
   }
 
@@ -72,5 +75,9 @@ export class TokenService {
       return values?.sub || '';
     }
     return '';
+  }
+
+  public getAuthStatus() {
+    return this.authStatus$.asObservable();
   }
 }

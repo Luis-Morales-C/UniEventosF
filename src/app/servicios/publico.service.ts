@@ -15,12 +15,12 @@ export class PublicoService {
 
 
   public listarTipos(): Observable<MensajeDTO> {
-    return this.http.get<MensajeDTO>(`${this.publicoURL}/evento/obtener-tipos`);
+    return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-tipo`);
   }
 
 
   public listarCiudades(): Observable<MensajeDTO> {
-    return this.http.get<MensajeDTO>(`${this.publicoURL}/evento/obtener-ciudades`);
+    return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-ciudades`);
   }
 
 

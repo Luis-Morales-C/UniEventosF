@@ -25,9 +25,13 @@
       </div>
 
       <div class="col-6">
-        <label for="ciudad" class="form-label">Ciudad:</label>
-        <input type="text" formControlName="ciudad" class="form-control" id="ciudad" />
+        <label class="form-label">Elige el departamento:</label>
+        <select formControlName="ciudad" class="form-select">
+          <option value="">Seleccione un departamento</option>
+          <option *ngFor="let item of ciudades; trackBy: trackByFn" [value]="item">{{ item }}</option>
+        </select>
       </div>
+
 
 
       <div formArrayName="localidades" class="col-12">
@@ -58,8 +62,8 @@
         <label class="form-label">Imagen portada: </label>
         <div class="d-flex gap-2">
           <input type="file" (change)="onFileChange($event, 'portada')" class="form-control" />
-          <button type="submit" class="btn btn-primary" (click)="subirImagen('portada')"><i
-              class="fa-solid fa-cloud-arrow-up"></i></button>
+          <button type="button" class="btn btn-primary" (click)="subirImagen('portada')"><i class="fa-solid fa-cloud-arrow-up"></i> Subir</button>
+          <button type="button" class="btn btn-danger" (click)="eliminarImagen('portada')"><i class="fa-solid fa-trash"></i> Eliminar</button>
         </div>
       </div>
 
@@ -67,10 +71,9 @@
         <label for="imagenLocalidades" class="form-label">Imagen localidades:</label>
         <div class="d-flex gap-2">
           <input type="file" (change)="onFileChange($event, 'localidades')" class="form-control" />
-          <button type="submit" class="btn btn-primary" (click)="subirImagen('localidades')"><i
-              class="fa-solid fa-cloud-arrow-up"></i></button>
+          <button type="button" class="btn btn-primary" (click)="subirImagen('localidades')"><i class="fa-solid fa-cloud-arrow-up"></i> Subir</button>
+          <button type="button" class="btn btn-danger" (click)="eliminarImagen('localidades')"><i class="fa-solid fa-trash"></i> Eliminar</button>
         </div>
-
       </div>
 
       <div class="col-12 text-center">

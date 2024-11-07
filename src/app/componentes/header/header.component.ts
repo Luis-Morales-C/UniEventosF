@@ -3,31 +3,28 @@ import { RouterModule } from '@angular/router';
 import { TokenService } from '../../servicios/token.service';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
- selector: 'app-header',
- standalone: true,
- imports: [RouterModule,CommonModule],
- templateUrl: './header.component.html',
- styleUrl: './header.component.css'
+  selector: 'app-header',
+  standalone: true,
+  imports: [RouterModule, CommonModule],
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'] 
 })
 export class HeaderComponent {
- title = 'Unieventos';
- isLogged = false;
- email: string = "";
+  title = 'Unieventos';
+  isLogged = false;
+  email: string = '';
 
+  constructor(private tokenService: TokenService) {
+    this.tokenService.getAuthStatus().subscribe((status: boolean) => {
+      this.isLogged = status;
+      this.email = status ? this.tokenService.getEmail() : '';
+    });
+  }
 
- constructor(private tokenService: TokenService) {
-   this.isLogged = this.tokenService.isLogged();
-   if (this.isLogged) {
-     this.email = this.tokenService.getEmail();
-   }
- }
-
-
- public logout() {
-   this.tokenService.logout();
- }
-
+  public logout() {
+    this.tokenService.logout();
+  }
 }
+
 

@@ -16,7 +16,7 @@ export class AdministradorService {
   constructor(private http: HttpClient) { }
 
   public crearEvento(crearEventoDTO: CrearEventoDTO): Observable<MensajeDTO> {
-    return this.http.post<MensajeDTO>(`${this.adminURL}/evento/crear`, crearEventoDTO);
+    return this.http.post<MensajeDTO>(`${this.adminURL}/crear-evento`, crearEventoDTO);
   }
 
 
@@ -40,8 +40,6 @@ export class AdministradorService {
   }
 
 
-  public subirImagen(imagen: FormData): Observable<MensajeDTO> {
-    return this.http.post<MensajeDTO>(`${this.adminURL}/imagen/subir`, imagen);
-  }
+ 
 
 }

@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { PublicoService } from '../../servicios/publico.service';
 import { AdministradorService } from '../../servicios/administrador.service';
 import { CrearEventoDTO } from '../../dto/crear-evento-dto';
+import { ImagenesService } from '../../servicios/imagenes.service';
 
 @Component({
   selector: 'app-crear-evento',
@@ -23,9 +24,11 @@ export class CrearEventoComponent {
   imagenPortada?: File;
   imagenLocalidades?: File;
 
-  constructor(private formBuilder: FormBuilder, private eventosService: EventosService, private publicoService: PublicoService, private administradorService: AdministradorService) {
+  constructor(private formBuilder: FormBuilder, private eventosService: EventosService, private publicoService: PublicoService, private administradorService: AdministradorService,
+    private imagenService:ImagenesService
+  ) {
     this.crearFormulario();
-    this.tiposDeEvento = ['Concierto', 'Fiesta', 'Teatro', 'Deportes'];
+    this.tiposDeEvento = [];
     this.ciudades = [];
     this.listarCiudades();
     this.listarTipos();
@@ -126,7 +129,7 @@ export class CrearEventoComponent {
     formData.append('imagen', imagen!);
 
 
-    this.administradorService.subirImagen(formData).subscribe({
+    this.imagenService.subirImagen(formData).subscribe({
       next: (data) => {
         this.crearEventoForm.get(formControl)?.setValue(data.respuesta);
         Swal.fire("Exito!", "Se ha subido la imagen.", "success");
@@ -136,8 +139,27 @@ export class CrearEventoComponent {
       }
     });
 
-
   }
+  
 
+  public eliminarImagen(tipo: string) {
+    const idImagen = tipo === 'portada' ? this.crearEventoForm.get('imagenPortada')?.value : this.crearEventoForm.get('imagenLocalidades')?.value;
+    
+    if (!idImagen) {
+      Swal.fire("Error!", "No hay imagen para eliminar.", "error");
+      return;
+    }
+  
+    this.imagenService.eliminarImagen(idImagen).subscribe({
+      next: () => {
+        Swal.fire("Exito!", "La imagen ha sido eliminada.", "success");
+        this.crearEventoForm.get(tipo === 'portada' ? 'imagenPortada' : 'imagenLocalidades')?.setValue('');
+      },
+      error: (error) => {
+        Swal.fire("Error!", error.error.respuesta, "error");
+      }
+    });
+  }
+  
 
 }

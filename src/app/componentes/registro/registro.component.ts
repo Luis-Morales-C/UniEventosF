@@ -69,6 +69,8 @@ export class RegistroComponent {
     { validators: this.passwordsMatchValidator });
   }
 
+  
+
   private crearTelefono(): FormControl {
     return this.formBuilder.control('', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]);
   }
