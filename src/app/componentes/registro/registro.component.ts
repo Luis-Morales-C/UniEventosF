@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray, FormControl } from '@angular/forms';
 import { AuthService } from '../../servicios/auth.service';
 import { CrearCuentaDTO } from '../../dto/crear-cuenta-dto';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,14 +16,15 @@ import Swal from 'sweetalert2';
 export class RegistroComponent {
   registroForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService,private router:Router) {
     this.crearFormulario();
   }
-
   public registrar() {
     const crearCuenta = this.registroForm.value as CrearCuentaDTO;
   
-    crearCuenta.telefonos = crearCuenta.telefonos.map((telefono: any) => telefono.numero);
+    crearCuenta.telefonos = crearCuenta.telefonos.map((telefono: string) => telefono.toString().trim());
+  
+    console.log(crearCuenta); 
   
     this.authService.crearCuenta(crearCuenta).subscribe({
       next: (data) => {
@@ -31,12 +33,16 @@ export class RegistroComponent {
           text: 'La cuenta se ha creado correctamente',
           icon: 'success',
           confirmButtonText: 'Aceptar'
+        }).then(() => {
+   
+          this.router.navigate(['/activar-cuenta']);    
         });
       },
       error: (error) => {
+        console.error(error);
         Swal.fire({
           title: 'Error',
-          text: error.error.respuesta,
+          text: error.error.respuesta || 'Ha ocurrido un error inesperado',
           icon: 'error',
           confirmButtonText: 'Aceptar'
         });
@@ -44,16 +50,11 @@ export class RegistroComponent {
     });
   }
   
-
   passwordsMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password')?.value;
     const confirmaPassword = formGroup.get('confirmaPassword')?.value;
-
     return password == confirmaPassword ? null : { passwordsMismatch: true };
   }
-
-
-
 
   private crearFormulario() {
     this.registroForm = this.formBuilder.group({
@@ -61,33 +62,26 @@ export class RegistroComponent {
       nombre: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       direccion: ['', [Validators.required]],
-      telefonos: this.formBuilder.array([this.crearTelefono()], [Validators.required]),
-      password: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]],
-      confirmaPassword: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]]
+      telefonos: this.formBuilder.array([this.crearTelefono()]),  // Array de strings
+      password: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(8)]],
+      confirmaPassword: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(8)]]
     },
-      { validators: this.passwordsMatchValidator } as AbstractControlOptions
-    );
+    { validators: this.passwordsMatchValidator });
   }
 
-private crearTelefono(): FormGroup {
-  return this.formBuilder.group({
-    numero: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]]
-  });
+  private crearTelefono(): FormControl {
+    return this.formBuilder.control('', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]);
+  }
+
+  get telefonos(): FormArray {
+    return this.registroForm.get('telefonos') as FormArray;
+  }
+
+  public agregarTelefono() {
+    this.telefonos.push(this.crearTelefono());
+  }
+
+  public eliminarTelefono(indice: number) {
+    this.telefonos.removeAt(indice);
+  }
 }
-
-
-get telefonos(): FormArray {
-  return this.registroForm.get('telefonos') as FormArray;
-}
-
-
-public agregarTelefono() {
-  this.telefonos.push(this.crearTelefono());
-}
-
-public eliminarTelefono(indice: number) {
-  this.telefonos.removeAt(indice);
-}
-}
-
-

@@ -45,7 +45,7 @@ export class ActivarCuentaComponent {
   private crearFormulario() {
     this.activarCuentaForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      codigo: ['', [Validators.required]]
+      codigoVerificacion: ['', [Validators.required]]
     });
   }
 }

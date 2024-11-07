@@ -7,23 +7,15 @@
     </div>
     <div class="card-body p-4">
       <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate class="row g-3">
-        <div class="col-12">
+        
+        <div class="col-md-6">
           <label for="correo" class="form-label">Email:</label>
-          <input type="email" formControlName="correo" class="form-control" id="correo" /> 
-          <div *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched" class="text-danger">
-            <small *ngIf="loginForm.get('correo')?.errors?.['required']">El email es requerido</small>
-            <small *ngIf="loginForm.get('correo')?.errors?.['email']">El email no es válido</small>
-          </div>
+          <input type="email" formControlName="correo" class="form-control" id="correo" />
         </div>
 
-        <div class="col-12">
+        <div class="col-md-6">
           <label for="password" class="form-label">Contraseña:</label>
           <input type="password" formControlName="password" class="form-control" id="password" />
-          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
-            <small *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es requerida</small>
-            <small *ngIf="loginForm.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 7 caracteres</small>
-            <small *ngIf="loginForm.get('password')?.errors?.['maxlength']">La contraseña no debe exceder los 10 caracteres</small>
-          </div>
         </div>
 
         <div class="col-12 text-center">
@@ -37,7 +29,9 @@
             ¿No puedes iniciar sesión? Activa tu cuenta aquí
           </a>
         </div>
+
       </form>
     </div>
   </div>
 </div>
+
