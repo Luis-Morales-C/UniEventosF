@@ -28,6 +28,5 @@ export class HeaderComponent {
    this.tokenService.logout();
  }
 
-
 }
 

@@ -8,11 +8,14 @@ import { DetalleEventoComponent } from './componentes/detalle-evento/detalle-eve
 import { LoginGuard } from './servicios/permiso.service';
 import { HistorialComprasComponent } from './componentes/historial-compras/historial-compras.component';
 import { RolesGuard } from './servicios/roles.service';
+import { ActivarCuentaComponent } from './componentes/activar-cuenta/activar-cuenta.component';
+
 
 export const routes: Routes = [
    { path: '', component: InicioComponent },
    { path: 'crear-evento', component: CrearEventoComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
    { path: "gestion-eventos", component: GestionEventosComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
+   { path: "activar-cuenta", component: ActivarCuentaComponent },
    { path: 'detalle-evento/:id', component: DetalleEventoComponent },
    { path: 'editar-evento/:id', component: CrearEventoComponent },
    { path: "historial-compras", component: HistorialComprasComponent, canActivate: [RolesGuard], data: { expectedRole: ["CLIENTE"] } },
