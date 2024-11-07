@@ -35,7 +35,7 @@ export class RegistroComponent {
           confirmButtonText: 'Aceptar'
         }).then(() => {
    
-          this.router.navigate(['/activar-cuenta']);    
+          this.router.navigate(['/activar-cuenta']);  
         });
       },
       error: (error) => {
