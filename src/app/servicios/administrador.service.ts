@@ -36,7 +36,7 @@ export class AdministradorService {
 
 
   public listarEventosAdmin(): Observable<MensajeDTO> {
-    return this.http.get<MensajeDTO>(`${this.adminURL}/evento/obtener-todos`);
+    return this.http.get<MensajeDTO>(`${this.adminURL}`);
   }
 
 

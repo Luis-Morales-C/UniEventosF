@@ -9,6 +9,7 @@ import { PublicoService } from '../../servicios/publico.service';
 import { AdministradorService } from '../../servicios/administrador.service';
 import { CrearEventoDTO } from '../../dto/crear-evento-dto';
 import { ImagenesService } from '../../servicios/imagenes.service';
+import { TokenService } from '../../servicios/token.service';
 
 @Component({
   selector: 'app-crear-evento',
@@ -19,42 +20,70 @@ import { ImagenesService } from '../../servicios/imagenes.service';
 })
 export class CrearEventoComponent {
   tiposDeEvento: string[];
+  estados: string[];
   crearEventoForm!: FormGroup;
   ciudades: string[];
   imagenPortada?: File;
   imagenLocalidades?: File;
+  
 
-  constructor(private formBuilder: FormBuilder, private eventosService: EventosService, private publicoService: PublicoService, private administradorService: AdministradorService,
-    private imagenService:ImagenesService
+  private tokenService: TokenService;
+  constructor(
+    private formBuilder: FormBuilder, 
+    private eventosService: EventosService, 
+    private publicoService: PublicoService,
+    private administradorService: AdministradorService,
+    private imagenService: ImagenesService,
+    tokenService: TokenService
   ) {
+ 
+    this.tokenService = tokenService;
+    
     this.crearFormulario();
     this.tiposDeEvento = [];
     this.ciudades = [];
+    this.estados = [];
     this.listarCiudades();
     this.listarTipos();
+    this.listarEstado();
 
-
-
+    this.crearEventoForm.patchValue({
+      idUsuario: this.tokenService.getIDCuenta()
+    });
   }
 
+  
   public crearEvento() {
-
-
+    if (this.crearEventoForm.invalid) {
+      this.crearEventoForm.markAllAsTouched();
+      Swal.fire({
+        icon: 'error',
+        title: 'Formulario incompleto',
+        text: 'Por favor completa todos los campos.',
+      });
+      return;
+    }
+  
     const crearEventoDTO = this.crearEventoForm.value as CrearEventoDTO;
-
-
+  
+    console.log('Datos del evento a crear:', crearEventoDTO);
+  
     this.administradorService.crearEvento(crearEventoDTO).subscribe({
       next: data => {
-        Swal.fire("Exito!", "Se ha creado un nuevo evento.", "success");
+        Swal.fire("Éxito!", "Se ha creado un nuevo evento.", "success");
+      
+        this.crearEventoForm.reset({
+          idUsuario: this.tokenService.getIDCuenta()
+        });
+        
       },
       error: error => {
         Swal.fire("Error!", error.error.respuesta, "error");
       }
     });
-
-
   }
-
+  
+  
 
   trackByFn(index: number, item: string): any {
     return item;
@@ -62,14 +91,21 @@ export class CrearEventoComponent {
 
   private crearFormulario() {
     this.crearEventoForm = this.formBuilder.group({
+      idUsuario: ['', [Validators.required]],
       nombre: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
       descripcion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
-      tipo: ['', [Validators.required]],
       direccion: ['', [Validators.required]],
       ciudad: ['', [Validators.required]],
-      localidades: this.formBuilder.array([]),
       imagenPortada: ['', [Validators.required]],
-      imagenLocalidades: ['', [Validators.required]]
+      imagenLocalidades: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      localidades: this.formBuilder.array([]),
+      estado: ['', [Validators.required]],
+      fecha: ['', [Validators.required]],
+      ubicacion: this.formBuilder.group({
+        latitud: ['', Validators.required],
+        longitud: ['', Validators.required]
+      })
     });
   }
 
@@ -119,6 +155,17 @@ export class CrearEventoComponent {
     });
   }
 
+  public listarEstado() {
+    this.publicoService.listarEstados().subscribe({
+      next: (data) => {
+        this.estados = data.respuesta;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
 
   public subirImagen(tipo: string) {
     const formData = new FormData();
@@ -141,10 +188,17 @@ export class CrearEventoComponent {
 
   }
   
-
   public eliminarImagen(tipo: string) {
-    const idImagen = tipo === 'portada' ? this.crearEventoForm.get('imagenPortada')?.value : this.crearEventoForm.get('imagenLocalidades')?.value;
-    
+    let idImagen = tipo === 'portada' ? this.crearEventoForm.get('imagenPortada')?.value : this.crearEventoForm.get('imagenLocalidades')?.value;
+
+  
+    if (idImagen.includes("https://")) {
+        const urlParts = idImagen.split("/");
+        idImagen = urlParts[urlParts.length - 1].split("?")[0]; 
+    }
+
+    console.log("Intentando eliminar imagen con nombre de archivo:", idImagen);
+
     if (!idImagen) {
       Swal.fire("Error!", "No hay imagen para eliminar.", "error");
       return;
@@ -152,14 +206,18 @@ export class CrearEventoComponent {
   
     this.imagenService.eliminarImagen(idImagen).subscribe({
       next: () => {
-        Swal.fire("Exito!", "La imagen ha sido eliminada.", "success");
-        this.crearEventoForm.get(tipo === 'portada' ? 'imagenPortada' : 'imagenLocalidades')?.setValue('');
+        Swal.fire("Éxito!", "La imagen ha sido eliminada.", "success");
+        
+        if (tipo === 'portada') {
+          this.crearEventoForm.get('imagenPortada')?.setValue('');
+        } else {
+          this.crearEventoForm.get('imagenLocalidades')?.setValue('');
+        }
       },
       error: (error) => {
+        console.log("Error al intentar eliminar la imagen:", error); 
         Swal.fire("Error!", error.error.respuesta, "error");
       }
     });
-  }
-  
-
+}
 }

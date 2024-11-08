@@ -1,5 +1,13 @@
 <form [formGroup]="crearEventoForm">
   <div class="container">
+    <div class="col-12 mb-3">
+    </div>
+    <div class="col-12 mb-3">
+    <h5 class="mb-0">
+      <i class="fa-regular fa-clipboard"></i> Crear un evento, cada campo es obligatorio
+    </h5>
+    </div>
+
     <div class="row g-3">
       <div class="col-12">
         <label for="nombre" class="form-label">Nombre:</label>
@@ -20,11 +28,6 @@
       </div>
 
       <div class="col-6">
-        <label for="direccion" class="form-label">Dirección:</label>
-        <input type="text" formControlName="direccion" class="form-control" id="direccion" />
-      </div>
-
-      <div class="col-6">
         <label class="form-label">Elige el departamento:</label>
         <select formControlName="ciudad" class="form-select">
           <option value="">Seleccione un departamento</option>
@@ -32,7 +35,37 @@
         </select>
       </div>
 
+      <div class="col-6">
+        <label class="form-label">Estado del evento:</label>
+        <select formControlName="estado" class="form-select">
+          <option value="">Seleccione un estado para el nuevo evento</option>
+          <option *ngFor="let item of estados; trackBy: trackByFn" [value]="item">{{ item }}</option>
+        </select>
+      </div>
 
+      <div class="col-6">
+        <label for="fecha" class="form-label">Fecha del evento:</label>
+        <input type="datetime-local" formControlName="fecha" class="form-control" id="fecha" />
+      </div>
+    
+      
+
+      <div class="col-6">
+        <label for="direccion" class="form-label">Dirección:</label>
+        <input type="text" formControlName="direccion" class="form-control" id="direccion" />
+      </div>
+
+      <div formGroupName="ubicacion">
+        <div class="col-6">
+          <label for="latitud" class="form-label">Latitud:</label>
+          <input type="text" formControlName="latitud" class="form-control" id="latitud"/>
+        </div>
+    
+        <div class="col-6">
+          <label for="longitud" class="form-label">Longitud:</label>
+          <input type="text" formControlName="longitud" class="form-control" id="longitud"/>
+        </div>
+      </div>
 
       <div formArrayName="localidades" class="col-12">
         <div *ngFor="let localidad of localidades.controls; let i = index" [formGroupName]="i" class="mb-3">

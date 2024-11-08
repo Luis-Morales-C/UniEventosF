@@ -21,6 +21,11 @@ export class PublicoService {
 
   public listarCiudades(): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-ciudades`);
+
+  }
+
+  public listarEstados(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-estado`);
   }
 
 
