@@ -20,8 +20,8 @@ export class AdministradorService {
   }
 
 
-  public actualizarEvento(editarEventoDTO: EditarEventoDTO): Observable<MensajeDTO> {
-    return this.http.put<MensajeDTO>(`${this.adminURL}/evento/editar`, editarEventoDTO);
+  public editarEvento(editarEventoDTO: EditarEventoDTO): Observable<MensajeDTO> {
+    return this.http.put<MensajeDTO>(`${this.adminURL}/editar-evento`, editarEventoDTO);
   }
 
 
@@ -31,15 +31,12 @@ export class AdministradorService {
 
 
   public eliminarEvento(id: string): Observable<MensajeDTO> {
-    return this.http.delete<MensajeDTO>(`${this.adminURL}/evento/eliminar/${id}`);
+    return this.http.delete<MensajeDTO>(`${this.adminURL}/eliminar-evento/${id}`);
   }
 
 
   public listarEventosAdmin(): Observable<MensajeDTO> {
-    return this.http.get<MensajeDTO>(`${this.adminURL}`);
+    return this.http.get<MensajeDTO>(`${this.adminURL}/listar-todo-evento`);
   }
-
-
- 
 
 }

@@ -1,93 +1,102 @@
 import { Component } from '@angular/core';
 import { EventosService } from '../../servicios/eventos.service';
 import { RouterModule } from '@angular/router';
-import { EventoDTO } from '../../dto/evento-dto';
-import Swal from 'sweetalert2';
 import { AdministradorService } from '../../servicios/administrador.service';
+import { CommonModule } from '@angular/common';
+import { ItemEventoDTO } from '../../dto/item-evento-dto';
+import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gestion-eventos',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule,FormsModule],
   templateUrl: './gestion-eventos.component.html',
-  styleUrl: './gestion-eventos.component.css'
+  styleUrls: ['./gestion-eventos.component.css']
 })
 export class GestionEventosComponent {
+  eventos: ItemEventoDTO[] = []; 
+  textoBtnEliminar: string = '¿Estás seguro de eliminar?'; 
+  seleccionados: ItemEventoDTO[] = [];
 
-
-  eventos: EventoDTO[];
-  textoBtnEliminar: String = '¿Estas seguro de eliminar?'
-  seleccionados: EventoDTO[] = [];
-
-  constructor(public eventosService: EventosService, private administradorService: AdministradorService) {
-    this.eventos = eventosService.listar();
+  constructor(
+    private eventosService: EventosService,
+    private administradorService: AdministradorService
+  ) {
+    this.listarEventos();  
   }
 
+  public listarEventos() {
+    this.administradorService.listarEventosAdmin().subscribe({
+      next: (data) => {
+        console.log(data.respuesta);  // Verifica qué datos se están recibiendo
+        this.eventos = data.respuesta;
+      },
+      error: (error) => {
+        console.error('Error al cargar eventos:', error);
+      },
+    });
+  }
 
-  public seleccionar(evento: EventoDTO, estado: boolean) {
+  public seleccionar(evento: ItemEventoDTO, event: any) {
+    const input = event.target as HTMLInputElement;
 
-
-    if (estado) {
-      this.seleccionados.push(evento);
+    if (input.checked) {
+      if (!this.seleccionados.includes(evento)) {
+        this.seleccionados.push(evento);
+      }
     } else {
-      this.seleccionados.splice(this.seleccionados.indexOf(evento), 1);
+      this.seleccionados = this.seleccionados.filter(item => item.id !== evento.id);
     }
 
-
     this.actualizarMensaje();
-
-
   }
 
+  public seleccionarTodos(event: any) {
+    const input = event.target as HTMLInputElement;
+
+    if (input.checked) {
+      this.seleccionados = [...this.eventos];
+    } else {
+      this.seleccionados = [];
+    }
+
+    this.actualizarMensaje();
+  }
 
   private actualizarMensaje() {
     const tam = this.seleccionados.length;
-
-
-    if (tam != 0) {
-      if (tam == 1) {
-        this.textoBtnEliminar = "1 elemento";
-      } else {
-        this.textoBtnEliminar = tam + " elementos";
-      }
+    if (tam !== 0) {
+      this.textoBtnEliminar = tam === 1 ? "1 elemento" : `${tam} elementos`; 
     } else {
-      this.textoBtnEliminar = "";
+      this.textoBtnEliminar = '';  
     }
   }
+
   public confirmarEliminacion() {
     Swal.fire({
-      title: "Estás seguro?",
+      title: "¿Estás seguro?",
       text: "Esta acción cambiará el estado de los eventos a Inactivos.",
-      icon: "error",
+      icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Confirmar",
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        this.eliminarEventos();
+        this.eliminarEventos();  
         Swal.fire("Eliminados!", "Los eventos seleccionados han sido eliminados.", "success");
       }
     });
   }
 
   public eliminarEventos() {
-    this.seleccionados.forEach(e1 => {
-      this.eventosService.eliminar(e1.id);
-      this.eventos = this.eventos.filter(e2 => e2.id !== e1.id);
+    this.seleccionados.forEach((evento) => {
+      if (typeof evento.id === 'string') {
+        this.administradorService.eliminarEvento(evento.id); 
+      }
+      this.eventos = this.eventos.filter((e) => e.id !== evento.id);  
     });
     this.seleccionados = [];
     this.actualizarMensaje();
-
   }
-  public listarEventos() {
-    this.administradorService.listarEventosAdmin().subscribe({
-      next: (data) => {
-        this.eventos = data.respuesta;
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
-  }
-
 }

@@ -1,0 +1,118 @@
+<form [formGroup]="editarEventoForm">
+    <div class="container">
+      <div class="col-12 mb-3">
+      </div>
+      <div class="col-12 mb-3">
+        <h5 class="mb-0">
+          <i class="fa-regular fa-clipboard"></i> Editar un evento
+        </h5>
+      </div>
+  
+      <div class="row g-3">
+        <div class="col-12">
+          <label for="nombre" class="form-label">Nombre:</label>
+          <input type="text" formControlName="nombre" class="form-control" id="nombre" />
+        </div>
+  
+        <div class="col-12">
+          <label for="descripcion" class="form-label">Descripción:</label>
+          <textarea formControlName="descripcion" class="form-control" id="descripcion"></textarea>
+        </div>
+  
+        <div class="col-6">
+          <label class="form-label">Tipo:</label>
+          <select formControlName="tipo" class="form-select">
+            <option value="">Seleccione un tipo</option>
+            <option *ngFor="let item of tiposDeEvento; trackBy: trackByFn" [value]="item">{{ item }}</option>
+          </select>
+        </div>
+  
+        <div class="col-6">
+          <label class="form-label">Elige el departamento:</label>
+          <select formControlName="ciudad" class="form-select">
+            <option value="">Seleccione un departamento</option>
+            <option *ngFor="let item of ciudades; trackBy: trackByFn" [value]="item">{{ item }}</option>
+          </select>
+        </div>
+  
+        <div class="col-6">
+          <label class="form-label">Estado del evento:</label>
+          <select formControlName="estado" class="form-select">
+            <option value="">Seleccione un estado</option>
+            <option *ngFor="let item of estados; trackBy: trackByFn" [value]="item">{{ item }}</option>
+          </select>
+        </div>
+  
+        <div class="col-6">
+          <label for="fecha" class="form-label">Fecha del evento:</label>
+          <input type="datetime-local" formControlName="fecha" class="form-control" id="fecha" />
+        </div>
+  
+        <div class="col-6">
+          <label for="direccion" class="form-label">Dirección:</label>
+          <input type="text" formControlName="direccion" class="form-control" id="direccion" />
+        </div>
+  
+        <div formGroupName="ubicacion">
+          <div class="col-6">
+            <label for="latitud" class="form-label">Latitud:</label>
+            <input type="text" formControlName="latitud" class="form-control" id="latitud"/>
+          </div>
+      
+          <div class="col-6">
+            <label for="longitud" class="form-label">Longitud:</label>
+            <input type="text" formControlName="longitud" class="form-control" id="longitud"/>
+          </div>
+        </div>
+  
+        <div formArrayName="localidades" class="col-12">
+          <div *ngFor="let localidad of localidades.controls; let i = index" [formGroupName]="i" class="mb-3">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="nombreLocalidad-{{i}}" class="form-label">Nombre de Localidad:</label>
+                <input type="text" formControlName="nombre" class="form-control" id="nombreLocalidad-{{i}}" />
+              </div>
+              <div class="col-md-4">
+                <label for="precioLocalidad-{{i}}" class="form-label">Precio de la localidad:</label>
+                <input type="text" formControlName="precio" class="form-control" id="precioLocalidad-{{i}}" />
+              </div>
+              <div class="col-md-4">
+                <label for="capacidadMaxima-{{i}}" class="form-label">Capacidad máxima:</label>
+                <input type="text" formControlName="capacidadMaxima" class="form-control" id="capacidadMaxima-{{i}}" />
+              </div>
+            </div>
+            <button type="button" class="btn btn-danger mt-2" (click)="eliminarLocalidad(i)">Eliminar Localidad</button>
+          </div>
+        </div>
+  
+        <div class="col-12 text-center">
+          <button type="button" class="btn btn-secondary" (click)="agregarLocalidad()">Agregar Localidad</button>
+        </div>
+  
+        <div class="col-12">
+          <label class="form-label">Imagen portada: </label>
+          <div class="d-flex gap-2">
+            <input type="file" (change)="onFileChange($event, 'portada')" class="form-control" />
+            <button type="button" class="btn btn-primary" (click)="subirImagen('portada')"><i class="fa-solid fa-cloud-arrow-up"></i> Subir</button>
+            <button type="button" class="btn btn-danger" (click)="eliminarImagen('portada')"><i class="fa-solid fa-trash"></i> Eliminar</button>
+          </div>
+        </div>
+  
+        <div class="col-12">
+          <label for="imagenLocalidades" class="form-label">Imagen localidades:</label>
+          <div class="d-flex gap-2">
+            <input type="file" (change)="onFileChange($event, 'localidades')" class="form-control" />
+            <button type="button" class="btn btn-primary" (click)="subirImagen('localidades')"><i class="fa-solid fa-cloud-arrow-up"></i> Subir</button>
+            <button type="button" class="btn btn-danger" (click)="eliminarImagen('localidades')"><i class="fa-solid fa-trash"></i> Eliminar</button>
+          </div>
+        </div>
+  
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary mt-4" (click)="editarEvento()">
+            <i class="fa-solid fa-pen me-2"></i> Editar evento
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  

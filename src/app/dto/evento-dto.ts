@@ -1,4 +1,5 @@
 import { LocalidadDTO } from "./localidad-dto";
+import { UbicacionDTO } from "./ubicacion-dto";
 
 
 export interface EventoDTO {
@@ -13,5 +14,6 @@ export interface EventoDTO {
    imagenPortada:string,
    imagenLocalidades:string,
    estado:string
+   ubicacion:UbicacionDTO
 }
 
