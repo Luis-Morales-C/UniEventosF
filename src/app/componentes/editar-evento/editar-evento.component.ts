@@ -12,6 +12,7 @@ import { ImagenesService } from '../../servicios/imagenes.service';
 import { TokenService } from '../../servicios/token.service';
 import { ActivatedRoute } from '@angular/router';  
 import { EditarEventoDTO } from '../../dto/editar-evento-dto';
+import { InformacionEventoDTO } from '../../dto/informacion-evento-dto';
 
 @Component({
   selector: 'app-editar-evento',
@@ -47,7 +48,6 @@ export class EditarEventoComponent implements OnInit {
     this.listarCiudades();
     this.listarTipos();
     this.listarEstado();
-    this.cargarEvento();
   }
 
   private crearFormulario() {
@@ -69,47 +69,7 @@ export class EditarEventoComponent implements OnInit {
       })
     });
   }
-
-
-  private cargarEvento() {
-    this.eventosService.obtenerEvento(this.eventoId).subscribe({
-      next: (data: EventoDTO) => {
-        this.editarEventoForm.patchValue({
-          nombre: data.nombre,
-          descripcion: data.descripcion,
-          direccion: data.direccion,
-          ciudad: data.ciudad,
-          tipo: data.tipo,
-          estado: data.estado,
-          fecha: data.fecha,
-          ubicacion: {
-            latitud: data.ubicacion.latitud,
-            longitud: data.ubicacion.longitud
-          },
-          imagenPortada: data.imagenPortada,
-          imagenLocalidades: data.imagenLocalidades,
-        });
-
-        this.agregarLocalidadesExistentes(data.localidades); // Agregar las localidades existentes
-      },
-      error: (error) => {
-        Swal.fire("Error", "Error al cargar los datos del evento.", "error");
-        console.error(error);
-      }
-    });
-  }
-
-  private agregarLocalidadesExistentes(localidades: any[]) {
-    const localidadesArray = this.editarEventoForm.get('localidades') as FormArray;
-    localidades.forEach(localidad => {
-      const localidadFormGroup = this.formBuilder.group({
-        nombre: [localidad.nombre, Validators.required],
-        precio: [localidad.precio, Validators.required],
-        capacidadMaxima: [localidad.capacidadMaxima, Validators.required]
-      });
-      localidadesArray.push(localidadFormGroup);
-    });
-  }
+  
 
   public editarEvento() {
     if (this.editarEventoForm.invalid) {
@@ -143,6 +103,7 @@ export class EditarEventoComponent implements OnInit {
   get localidades(): FormArray {
     return this.editarEventoForm.get('localidades') as FormArray;
   }
+  
 
   agregarLocalidad() {
     const localidadFormGroup = this.formBuilder.group({

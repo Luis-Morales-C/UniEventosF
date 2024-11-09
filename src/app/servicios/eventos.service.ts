@@ -3,6 +3,7 @@ import { EventoDTO } from '../dto/evento-dto';
 import { MensajeDTO } from '../dto/mensaje-dto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { InformacionEventoDTO } from '../dto/informacion-evento-dto';
 
 
 
@@ -16,7 +17,7 @@ export class EventosService {
   constructor(private http: HttpClient) { }
 
 
-  public obtenerEvento(id: string): Observable<EventoDTO> {
-    return this.http.get<EventoDTO>(`${this.eventoURL}/obtener-evento/${id}`);
+  public obtenerEvento(id: string): Observable<InformacionEventoDTO> {
+    return this.http.get<InformacionEventoDTO>(`${this.eventoURL}/obtener-evento/${id}`);
   }
 }

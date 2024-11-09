@@ -29,7 +29,7 @@ export class GestionEventosComponent {
   public listarEventos() {
     this.administradorService.listarEventosAdmin().subscribe({
       next: (data) => {
-        console.log(data.respuesta);  // Verifica qué datos se están recibiendo
+        console.log(data.respuesta);  
         this.eventos = data.respuesta;
       },
       error: (error) => {

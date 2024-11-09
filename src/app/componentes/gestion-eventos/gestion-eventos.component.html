@@ -14,9 +14,13 @@
           <i class="fa-solid fa-trash me-1"></i> Eliminar {{ textoBtnEliminar }}
         </button>
 
-        <button type="button" routerLink="/editar-evento" class="btn btn-primary" [disabled]="seleccionados.length !== 1">
-          <i class="fa-solid fa-pen me-1"></i> Editar
-        </button>
+        <button type="button" 
+        [routerLink]="['/editar-evento', seleccionados[0]?.id]" 
+        class="btn btn-primary" 
+        [disabled]="seleccionados.length !== 1">
+  <i class="fa-solid fa-pen me-1"></i> Editar
+</button>
+
       </div>
 
       <div class="table-responsive" *ngIf="eventos.length > 0">
