@@ -48,7 +48,42 @@ export class EditarEventoComponent implements OnInit {
     this.listarCiudades();
     this.listarTipos();
     this.listarEstado();
-  }
+    this.cargarEvento();
+}
+
+private cargarEvento() {
+  this.eventosService.obtenerEvento(this.eventoId).subscribe({
+    next: (evento: InformacionEventoDTO) => {
+      console.log('Datos del evento recibidos:', evento);
+      this.editarEventoForm.patchValue({
+        idEvento: this.eventoId,
+        nombre: evento.nombre,
+        descripcion: evento.descripcion,
+        direccion: evento.direccion,
+        ciudad: evento.ciudad,
+        tipo: evento.tipo,
+        estado: evento.estado,
+        fecha: evento.fecha,
+        ubicacion: {
+          latitud: evento.ubicacion.latitud,
+          longitud: evento.ubicacion.longitud
+        }
+      });
+
+      evento.localidades.forEach(localidad => {
+        const localidadFormGroup = this.formBuilder.group({
+          nombre: [localidad.nombre, Validators.required],
+          precio: [localidad.precio, Validators.required],
+          capacidadMaxima: [localidad.capacidad, Validators.required]
+        });
+        this.localidades.push(localidadFormGroup);
+      });
+    },
+    error: (error) => {
+      console.error('Error al cargar el evento:', error);
+    }
+  });
+}
 
   private crearFormulario() {
     this.editarEventoForm = this.formBuilder.group({
