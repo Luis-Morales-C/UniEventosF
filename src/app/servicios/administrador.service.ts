@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CrearEventoDTO } from '../dto/crear-evento-dto';
 import { EditarEventoDTO } from '../dto/editar-evento-dto';
 import { CrearCuponDTO } from '../dto/crear-cupon-dto';
+import { ActualizarCuponDTO } from '../dto/actualizar-cupon-dto';
 
 
 @Injectable({
@@ -45,8 +46,8 @@ export class AdministradorService {
     return this.http.post<MensajeDTO>(`${this.adminURL}/crear-cupon`,crearCuponDTO);
   }
 
-  public actualizarCupon(cuponDTO: string): Observable<MensajeDTO> {
-    return this.http.put<MensajeDTO>(`${this.adminURL}/actualizar-cupon`, cuponDTO);
+  public actualizarCupon(actualizarCuponDTO: ActualizarCuponDTO): Observable<MensajeDTO> {
+    return this.http.put<MensajeDTO>(`${this.adminURL}/actualizar-cupon`, actualizarCuponDTO);
   }
 
   public eliminarCupon(idCupon: string): Observable<MensajeDTO> {

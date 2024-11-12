@@ -1,0 +1,50 @@
+<form [formGroup]="editarCuponForm">
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h5><i class="fa-regular fa-clipboard"></i> Editar Cupón</h5>
+        </div>
+  
+        <div class="row g-3">
+          <div class="col-12">
+            <label for="nombreCupon" class="form-label">Nombre del Cupón:</label>
+            <input type="text" formControlName="nombre" class="input" id="nombreCupon" />
+          </div>
+  
+          <div class="col-6">
+            <label for="descuento" class="form-label">Descuento (%):</label>
+            <input type="number" formControlName="descuento" class="input" id="descuento" />
+          </div>
+  
+          <div class="col-6">
+            <label for="fechaVencimiento" class="form-label">Fecha de Vencimiento:</label>
+            <input type="datetime-local" formControlName="fechaVencimiento" class="input" id="fechaVencimiento" />
+          </div>
+  
+          <div class="col-6">
+            <label for="estadoCupon" class="form-label">Estado del Cupón:</label>
+            <select formControlName="estadoCupon" class="input" id="estadoCupon">
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+  
+          <div formArrayName="beneficiarios" class="col-12">
+            <div *ngFor="let beneficiario of beneficiarios.controls; let i = index" class="mb-3">
+              <label for="beneficiario-{{i}}" class="form-label">Beneficiario {{i + 1}}:</label>
+              <input type="text" [formControlName]="i" class="input" id="beneficiario-{{i}}" />
+              <button type="button" (click)="eliminarBeneficiario(i)">Eliminar</button>
+            </div>
+            <button type="button" (click)="agregarBeneficiario()">Agregar Beneficiario</button>
+          </div>
+  
+          <div class="col-12 text-center">
+            <button type="submit" class="button-confirm" (click)="editarCupon()">
+              <i class="fa-solid fa-pen me-2"></i> Editar Cupón
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  

@@ -13,14 +13,18 @@ import { CambiarPasswordComponent } from './componentes/cambiar-password/cambiar
 import { EditarEventoComponent } from './componentes/editar-evento/editar-evento.component';
 import { GestionCuponesComponent } from './componentes/gestion-cupones/gestion-cupones.component';
 import { CrearCuponComponent } from './componentes/crear-cupones/crear-cupones.component';
+import { EditarCuponesComponent } from './componentes/editar-cupones/editar-cupones.component';
+import { AdministrarCuentaComponent } from './componentes/administrar-cuenta/administrar-cuenta.component';
 
 
 export const routes: Routes = [
    { path: '', component: InicioComponent },
    { path: 'crear-evento', component: CrearEventoComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
    { path: 'crear-cupones', component: CrearCuponComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
+   { path: 'editar-cupon/:id', component: EditarCuponesComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
    { path: "gestion-eventos", component: GestionEventosComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
    { path: "gestion-cupones", component: GestionCuponesComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
+   { path: "editar-cuenta", component: AdministrarCuentaComponent },
    { path: "activar-cuenta", component: ActivarCuentaComponent },
    { path: 'detalle-evento/:id', component: DetalleEventoComponent },
    { path: 'editar-evento/:id', component: EditarEventoComponent },

@@ -7,27 +7,34 @@
       </a>
     </div>
 
-
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
       <li><a routerLink="/" class="nav-link px-2 link-secondary">Inicio</a></li>
       <li><a routerLink="/gestion-eventos" class="nav-link px-2">Gestion-eventos</a></li>
       <li><a routerLink="/gestion-cupones" class="nav-link px-2">Gestion-Cupones</a></li>
-      <li><a routerLink="/historial-eventos" class="nav-link px-2">Administrar cuenta </a></li>
+      
+     
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle px-2" id="administrarCuentaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Gestionar cuenta
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="administrarCuentaDropdown">
+          <li><a class="dropdown-item" routerLink="/editar-cuenta">Editar cuenta</a></li>
+          <li><a class="dropdown-item" routerLink="/cambiar-password">Cambiar contraseña</a></li>
+        </ul>
+      </li>
     </ul>
 
-  
     <div class="col-md-3 d-flex text-end align-items-center">
-   
       <ng-container *ngIf="!isLogged; else loggedIn">
         <button type="button" routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
         <button type="button" routerLink="/registro" class="btn btn-primary">Registro</button>
       </ng-container>
 
-    
       <ng-template #loggedIn>
         <label class="me-3">Hola {{ email }}</label>
-        <button type="button" (click)="logout()" class="btn btn-primary">Logout</button>
+        <button type="button" (click)="logout()" class="btn btn-primary">Salir</button>
       </ng-template>
     </div>
   </header>
 </div>
+
