@@ -1,0 +1,111 @@
+/* Fondo de la página */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #d3d3d3;
+    display: flex;
+    align-items: flex-start; /* Cambia a flex-start para alinear hacia arriba */
+    justify-content: center;
+}
+
+/* Contenedor principal */
+.container {
+    display: flex;
+    align-items: flex-start; /* Alineación hacia la parte superior */
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 20px; /* Espacio adicional en la parte superior para moverlo más hacia arriba */
+    width: 100%;
+}
+
+/* Estilos de la tarjeta */
+.card {
+    width: 700px; /* Aumenta el ancho del formulario */
+    background-color: #d3d3d3;
+    padding: 50px; /* Aumenta el padding para darle mayor tamaño */
+    border-radius: 12px;
+    border: 2px solid #323232;
+    box-shadow: 6px 6px #323232;
+}
+
+/* Estilos del encabezado */
+.card-header {
+    background-color: #d3d3d3;
+    padding: 15px 20px;
+    border-bottom: 1px solid #323232;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 20px;
+}
+
+/* Título del encabezado */
+.card-header h5 {
+    color: #323232;
+    font-weight: 900;
+    font-size: 26px; /* Aumenta el tamaño del título */
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos de las etiquetas */
+.form-label {
+    color: #323232;
+    font-size: 18px; /* Aumenta el tamaño de las etiquetas */
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Estilos para los campos de entrada */
+.input {
+    width: 100%;
+    height: 50px; /* Aumenta la altura de los inputs */
+    border-radius: 6px;
+    border: 2px solid #323232;
+    background-color: #ffffff;
+    box-shadow: 2px 2px #323232;
+    font-size: 16px; /* Aumenta el tamaño del texto */
+    font-weight: 500;
+    color: #323232;
+    padding: 10px 15px;
+}
+
+.input::placeholder {
+    color: #666;
+    opacity: 0.8;
+}
+
+.input:focus {
+    border: 2px solid #2d8cf0;
+    outline: none;
+}
+
+/* Botón principal */
+.button-confirm {
+    width: 100%;
+    height: 55px; /* Aumenta la altura del botón */
+    border-radius: 8px;
+    border: none;
+    background-color: #2d8cf0;
+    box-shadow: 2px 2px #323232;
+    font-size: 18px; /* Aumenta el tamaño del texto en el botón */
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.button-confirm:hover {
+    background-color: #1c73d3;
+}
+
+/* Estilos para los enlaces */
+.signin a {
+    color: #2d8cf0;
+    text-decoration: none;
+    font-size: 16px; /* Aumenta el tamaño del texto de los enlaces */
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+}

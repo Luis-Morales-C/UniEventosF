@@ -1,45 +1,29 @@
 <div class="container mt-5">
   <div class="card">
     <div class="card-header p-4">
-      <h5 class="mb-0">
+      <h5 class="mb-0 title">
         <i class="fa-solid fa-right-to-bracket me-3"></i>Inicio de sesión
       </h5>
     </div>
     <div class="card-body p-4">
-      <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate class="row g-3">
+      <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate class="form">
+        <label for="correo" class="form-label">Email:</label>
+        <input type="email" formControlName="correo" class="input" id="correo" placeholder="Introduce tu email" />
         
-        <div class="col-md-6">
-          <label for="correo" class="form-label">Email:</label>
-          <input type="email" formControlName="correo" class="form-control" id="correo" />
-        </div>
-
-        <div class="col-md-6">
-          <label for="password" class="form-label">Contraseña:</label>
-          <input type="password" formControlName="password" class="form-control" id="password" />
-        </div>
-
-        <div class="col-12 text-center">
-          <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
-            <i class="fa-solid fa-right-to-bracket me-2"></i>Iniciar sesión
-          </button>
-        </div>
-
-        <div class="col-12 text-center mt-3">
-          <a [routerLink]="['/activar-cuenta']" class="link-primary">
-            ¿No puedes iniciar sesión? Activa tu cuenta aquí
-          </a>
-        </div>
-
+        <label for="password" class="form-label">Contraseña:</label>
+        <input type="password" formControlName="password" class="input" id="password" placeholder="Introduce tu contraseña" />
         
-        <div class="col-12 text-center mt-3">
-          <a [routerLink]="['/cambiar-password']" class="link-primary">
-            ¿Se te olvido tu contraseña? Cambiala aqui
-          </a>
+        <button type="submit" class="button-confirm" [disabled]="loginForm.invalid">
+          <i class="fa-solid fa-right-to-bracket me-2"></i>Iniciar sesión
+        </button>
+
+        <div class="signin">
+          <a [routerLink]="['/activar-cuenta']">¿No puedes iniciar sesión? Activa tu cuenta aquí</a>
         </div>
-
-
+        <div class="signin">
+          <a [routerLink]="['/cambiar-password']">¿Se te olvidó tu contraseña? Cámbiala aquí</a>
+        </div>
       </form>
     </div>
   </div>
 </div>
-

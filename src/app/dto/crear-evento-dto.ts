@@ -1,5 +1,5 @@
-import { LocalidadDTO } from "./localidad-dto";
-import { UbicacionDTO } from "./ubicacion-dto";
+import { Localidad } from "./localidad"
+import { Ubicacion } from "./ubicacion"
 
 export interface CrearEventoDTO {
     idUsuario: string;
@@ -10,8 +10,8 @@ export interface CrearEventoDTO {
     imagenPortada: string;
     imagenLocalidades: string;
     tipo: string;
-    localidades: LocalidadDTO[];
+    localidades: Localidad[];
     estado: string;
     fecha: string;  
-    ubicacion: UbicacionDTO;
+    ubicacion: Ubicacion;
 }

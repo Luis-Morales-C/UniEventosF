@@ -4,6 +4,7 @@ import { MensajeDTO } from '../dto/mensaje-dto';
 import { Observable } from 'rxjs';
 import { CrearEventoDTO } from '../dto/crear-evento-dto';
 import { EditarEventoDTO } from '../dto/editar-evento-dto';
+import { CrearCuponDTO } from '../dto/crear-cupon-dto';
 
 
 @Injectable({
@@ -24,19 +25,36 @@ export class AdministradorService {
     return this.http.put<MensajeDTO>(`${this.adminURL}/editar-evento`, editarEventoDTO);
   }
 
+  public eliminarEvento(id: string): Observable<MensajeDTO> {
+    return this.http.delete<MensajeDTO>(`${this.adminURL}/eliminar-evento/${id}`);
+  }
 
   public obtenerEvento(id: string): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.adminURL}/evento/obtener/${id}`);
   }
 
-
-  public eliminarEvento(id: string): Observable<MensajeDTO> {
-    return this.http.delete<MensajeDTO>(`${this.adminURL}/eliminar-evento/${id}`);
-  }
-
-
   public listarEventosAdmin(): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.adminURL}/listar-todo-evento`);
   }
+
+  public listarCuponesAdmin(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.adminURL}/listar-cupones`);
+  }
+
+  public crearCupon(crearCuponDTO:CrearCuponDTO ): Observable<MensajeDTO> {
+    return this.http.post<MensajeDTO>(`${this.adminURL}/crear-cupon`,crearCuponDTO);
+  }
+
+  public actualizarCupon(cuponDTO: string): Observable<MensajeDTO> {
+    return this.http.put<MensajeDTO>(`${this.adminURL}/actualizar-cupon`, cuponDTO);
+  }
+
+  public eliminarCupon(idCupon: string): Observable<MensajeDTO> {
+    return this.http.delete<MensajeDTO>(`${this.adminURL}/borrar-cupon/${idCupon}`);
+  }
+
+
+
+
 
 }

@@ -1,6 +1,5 @@
-import { LocalidadDTO } from "./localidad-dto";
-import { UbicacionDTO } from "./ubicacion-dto";
-
+import { Localidad } from "./localidad"
+import { Ubicacion } from "./ubicacion"
 export interface EditarEventoDTO {
     id: string;
     nombre: string;
@@ -9,8 +8,8 @@ export interface EditarEventoDTO {
     imagenPortada: string;
     imagenLocalidades: string;
     tipo: string;
-    localidades: LocalidadDTO[];
+    localidades: Localidad[];
     estado: string;
     fecha: string;
-    ubicacion: UbicacionDTO;
+    ubicacion: Ubicacion;
   }

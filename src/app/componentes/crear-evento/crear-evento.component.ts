@@ -188,6 +188,7 @@ export class CrearEventoComponent {
 
   }
   
+  
   public eliminarImagen(tipo: string) {
     let idImagen = tipo === 'portada' ? this.crearEventoForm.get('imagenPortada')?.value : this.crearEventoForm.get('imagenLocalidades')?.value;
 
@@ -219,5 +220,7 @@ export class CrearEventoComponent {
         Swal.fire("Error!", error.error.respuesta, "error");
       }
     });
+    
 }
+
 }

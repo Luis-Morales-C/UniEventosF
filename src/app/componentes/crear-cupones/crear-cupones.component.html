@@ -1,0 +1,74 @@
+<form [formGroup]="crearCuponForm">
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h5><i class="fa-regular fa-clipboard"></i> Crear un cupón, cada campo es obligatorio</h5>
+        </div>
+  
+        <div class="row g-3">
+          <div class="col-12">
+            <label for="codigo" class="form-label">Código:</label>
+            <input type="text" formControlName="codigo" class="input" id="codigo" />
+          </div>
+  
+          <div class="col-12">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" formControlName="nombre" class="input" id="nombre" />
+          </div>
+  
+          <div class="col-6">
+            <label class="form-label">Tipo de cupon:</label>
+            <select formControlName="tipo" class="input">
+              <option value="">Seleccione un tipo</option>
+              <option *ngFor="let item of tiposCupon" [value]="item">{{ item }}</option>
+            </select>
+          </div>
+  
+          <div class="col-6">
+            <div class="col-6">
+                <label class="form-label">Estado del cupon:</label>
+                <select formControlName="tipo" class="input">
+                  <option value="">Seleccione un estado</option>
+                  <option *ngFor="let item of estados" [value]="item">{{ item }}</option>
+                </select>
+              </div>
+            </div>
+  
+          <div class="col-6">
+            <label for="descuento" class="form-label">Descuento:</label>
+            <input type="number" formControlName="descuento" class="input" id="descuento" />
+          </div>
+  
+          <div class="col-6">
+            <label for="fechaVencimiento" class="form-label">Fecha de vencimiento:</label>
+            <input type="datetime-local" formControlName="fechaVencimiento" class="input" id="fechaVencimiento" />
+          </div>
+  
+          <div formArrayName="beneficiarios" class="col-12">
+            <div *ngFor="let beneficiario of beneficiarios; let i = index" class="mb-3">
+              <div class="row">
+                <div class="col-md-8">
+                  <label for="beneficiario-{{i}}" class="form-label">Beneficiario:</label>
+                  <input type="text" [(ngModel)]="beneficiarios[i]" class="input" id="beneficiario-{{i}}" />
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="button-confirm mt-2" (click)="eliminarBeneficiario(i)">Eliminar Beneficiario</button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-12 text-center">
+            <button type="button" class="button-confirm" (click)="agregarBeneficiario()">Agregar Beneficiario</button>
+          </div>
+  
+          <div class="col-12 text-center">
+            <button type="submit" class="button-confirm mt-4" (click)="crearCupon()">
+              <i class="fa-solid fa-plus me-2"></i> Crear cupón
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  

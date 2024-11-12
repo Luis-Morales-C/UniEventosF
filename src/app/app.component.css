@@ -1,0 +1,7 @@
+/* app.component.css */
+:host {
+    display: block;
+    background-color: #000000;
+    height: 100%; /* Asegura que el color de fondo cubra toda la altura */
+  }
+      

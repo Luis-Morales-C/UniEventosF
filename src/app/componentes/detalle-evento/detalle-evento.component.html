@@ -1,1 +1,49 @@
-<p>{{evento | json}}</p>
+<div class="container">
+  <div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+      <h5 class="mb-0"><i class="fa-solid fa-location-dot me-3"></i>Detalle del Evento</h5>
+    </div>
+
+    <div class="card-body p-5">
+    
+      <div *ngIf="evento; else loading" class="evento-detail">
+        <div class="row">
+          <div class="col-md-8">
+            <h3>{{ evento.nombre }}</h3>
+            <p><strong>Tipo:</strong> {{ evento.tipo }}</p>
+            <p><strong>Ciudad:</strong> {{ evento.ciudad }}</p>
+            <p><strong>Dirección:</strong> {{ evento.direccion }}</p>
+            <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
+            <p><strong>Estado:</strong> {{ evento.estado }}</p>
+
+            <h4>Ubicación:</h4>
+            <p><strong>Latitud:</strong> {{ evento.ubicacion.latitud }}</p>
+            <p><strong>Longitud:</strong> {{ evento.ubicacion.longitud }}</p>
+
+            <h4>Localidades:</h4>
+            <ul>
+              <li *ngFor="let localidad of evento.localidades">
+                {{ localidad.nombre }} - {{ localidad.capacidadMaxima }} personas
+              </li>
+            </ul>
+
+            <h4>Descripción:</h4>
+            <p>{{ evento.descripcion }}</p>
+
+          </div>
+          <div class="col-md-4">
+            <h4>Imágenes de portada:</h4>
+            <img [src]="evento.imagenPortada" alt="{{ evento.nombre }}" class="img-fluid" style="max-width: 100%; margin-top: 10px;">
+            <h4>Imágenes de Localidades:</h4>
+            <img [src]="evento.imagenLocalidades" alt="{{ evento.nombre }}" class="img-fluid" style="max-width: 100%; margin-top: 10px;">
+          </div>
+        </div>
+      </div>
+
+      <ng-template #loading>
+        <p>Cargando información del evento...</p>
+      </ng-template>
+
+    </div>
+  </div>
+</div>
