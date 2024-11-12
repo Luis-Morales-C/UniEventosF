@@ -1,11 +1,88 @@
-/* app-header.component.css */
+
+button {
+  --blue: #1E90FF;  
+  font-size: 15px;
+  padding: 0.7em 2.7em;
+  letter-spacing: 0.06em;
+  position: relative;
+  font-family: inherit;
+  border-radius: 0.6em;
+  overflow: hidden;
+  transition: all 0.3s;
+  line-height: 1.4em;
+  border: 2px solid var(--blue);
+  background: linear-gradient(to right, rgba(30, 144, 255, 0.1) 1%, transparent 40%, transparent 60%, rgba(30, 144, 255, 0.1) 100%);
+  color: var(--blue);
+  box-shadow: inset 0 0 10px rgba(30, 144, 255, 0.4), 0 0 9px 3px rgba(30, 144, 255, 0.1);
+}
+
+button:hover {
+  color: #82aaff;  
+  box-shadow: inset 0 0 10px rgba(30, 144, 255, 0.6), 0 0 9px 3px rgba(30, 144, 255, 0.2);
+}
+
+button:before {
+  content: "";
+  position: absolute;
+  left: -4em;
+  width: 4em;
+  height: 100%;
+  top: 0;
+  transition: transform 0.4s ease-in-out;
+  background: linear-gradient(to right, transparent 1%, rgba(30, 144, 255, 0.1) 40%, rgba(30, 144, 255, 0.1) 60%, transparent 100%);
+}
+
+button:hover:before {
+  transform: translateX(15em);
+}
+
+
 :host {
-    display: block;
-    background-color: #000000;  /* Aplica el color de fondo */
-    width: 100%;                /* Asegura que el encabezado ocupe todo el ancho */
-  }
-  
-  .container .fs-4 {
-    color: #007acc; /* Cambia este código de color por el que prefieras */
-  }
-  
+  display: block;
+  background-color: #000000;  
+  width: 100%;
+}
+
+.container .fs-4 {
+  font-size: 2rem; 
+  color: #1E90FF; 
+  font-weight: bold; 
+  letter-spacing: 0.05em; 
+  text-transform: uppercase;
+}
+
+
+.nav-link {
+  font-size: 1.2rem; 
+  padding: 0.7em 1.5em;
+  letter-spacing: 0.05em;
+  position: relative;
+  font-family: inherit;
+  border-radius: 0.6em;
+  overflow: hidden;
+  transition: all 0.3s;
+  color: #1E90FF;
+  text-decoration: none; 
+  background: linear-gradient(to right, rgba(30, 144, 255, 0.1) 1%, transparent 40%, transparent 60%, rgba(30, 144, 255, 0.1) 100%);
+  box-shadow: inset 0 0 10px rgba(30, 144, 255, 0.4), 0 0 9px 3px rgba(30, 144, 255, 0.1);
+}
+
+.nav-link:hover {
+  color: #82aaff;  
+  box-shadow: inset 0 0 10px rgba(30, 144, 255, 0.6), 0 0 9px 3px rgba(30, 144, 255, 0.2);
+}
+
+.nav-link:before {
+  content: "";
+  position: absolute;
+  left: -4em;
+  width: 4em;
+  height: 100%;
+  top: 0;
+  transition: transform 0.4s ease-in-out;
+  background: linear-gradient(to right, transparent 1%, rgba(30, 144, 255, 0.1) 40%, rgba(30, 144, 255, 0.1) 60%, transparent 100%);
+}
+
+.nav-link:hover:before {
+  transform: translateX(15em);
+}

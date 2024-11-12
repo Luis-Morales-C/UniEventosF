@@ -1,30 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TokenService } from '../../servicios/token.service';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'] 
+  styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
   title = 'Unieventos';
-  isLogged = false;
+  isLogged: boolean = false;
   email: string = '';
+  nombre: string='';
+  isAdmin: boolean = false;
+
+  private authStatusSubscription: Subscription;
+  private emailSubscription: Subscription;
+  private rolSubscription: Subscription;
 
   constructor(private tokenService: TokenService) {
-    this.tokenService.getAuthStatus().subscribe((status: boolean) => {
+
+    this.authStatusSubscription = this.tokenService.getAuthStatus().subscribe(status => {
       this.isLogged = status;
-      this.email = status ? this.tokenService.getEmail() : '';
+    });
+
+    this.emailSubscription = this.tokenService.getEmailStatus().subscribe(email => {
+      this.email = email;
+    });
+
+    this.rolSubscription = this.tokenService.getRolStatus().subscribe(rol => {
+      this.isAdmin = rol === 'ADMINISTRADOR';
     });
   }
 
-  public logout() {
-    this.tokenService.logout();
+  logout(): void {
+    this.tokenService.logout(); 
+  }
+
+
+  ngOnDestroy(): void {
+    this.authStatusSubscription.unsubscribe();
+    this.emailSubscription.unsubscribe();
+    this.rolSubscription.unsubscribe();
   }
 }
-
 

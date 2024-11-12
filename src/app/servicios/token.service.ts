@@ -10,12 +10,17 @@ const TOKEN_KEY = "AuthToken";
 })
 export class TokenService {
   private authStatus$ = new BehaviorSubject<boolean>(this.isLogged());
+  private email$ = new BehaviorSubject<string>(this.getEmail());
+  private rol$ = new BehaviorSubject<string>(this.getRol());
 
   constructor(private router: Router) {}
+
 
   public setToken(token: string): void {
     window.sessionStorage.setItem(TOKEN_KEY, token);
     this.authStatus$.next(true); 
+    this.email$.next(this.getEmail()); 
+    this.rol$.next(this.getRol());   
   }
 
   public getToken(): string | null {
@@ -35,7 +40,9 @@ export class TokenService {
 
   public logout(): void {
     window.sessionStorage.clear();
-    this.authStatus$.next(false);  // Emitir estado no autenticado
+    this.authStatus$.next(false);  
+    this.email$.next('');             
+    this.rol$.next('');              
     this.router.navigate(["/login"]);
   }
 
@@ -78,6 +85,14 @@ export class TokenService {
   }
 
   public getAuthStatus() {
-    return this.authStatus$.asObservable();
+    return this.authStatus$.asObservable(); 
+  }
+
+  public getEmailStatus() {
+    return this.email$.asObservable(); 
+  }
+
+  public getRolStatus() {
+    return this.rol$.asObservable();
   }
 }
