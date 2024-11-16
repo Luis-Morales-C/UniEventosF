@@ -15,6 +15,7 @@ import { GestionCuponesComponent } from './componentes/gestion-cupones/gestion-c
 import { CrearCuponComponent } from './componentes/crear-cupones/crear-cupones.component';
 import { EditarCuponesComponent } from './componentes/editar-cupones/editar-cupones.component';
 import { AdministrarCuentaComponent } from './componentes/administrar-cuenta/administrar-cuenta.component';
+import { EventoComponent } from './componentes/evento/evento.component';
 
 
 export const routes: Routes = [
@@ -30,8 +31,9 @@ export const routes: Routes = [
    { path: 'editar-evento/:id', component: EditarEventoComponent },
    { path: "historial-compras", component: HistorialComprasComponent, canActivate: [RolesGuard], data: { expectedRole: ["CLIENTE"] } },
    { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
-   { path: 'registro', component: RegistroComponent, canActivate: [LoginGuard]},  
-   {path: 'cambiar-password',component:CambiarPasswordComponent},
+   { path: 'registro', component: RegistroComponent, canActivate: [LoginGuard] },
+   { path: 'cambiar-password', component: CambiarPasswordComponent },
+   { path: 'evento/:id', component: EventoComponent },
    { path: "**", pathMatch: "full", redirectTo: "" }
 ];
 

@@ -1,10 +1,198 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-.container {
-    width: 100%;
-    height: 100%;
-  
-    background-color: #313131;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
-    background-size: 30px 30px;
-    background-position: -5px -5px
+.header {
+  background-color: #0073e6;
+  color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-size: 24px;
+  color: white;
+  margin: 0;
+}
+
+.header nav {
+  display: flex;
+  gap: 15px;
+}
+
+.header nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.search-bar {
+  display: flex;
+  gap: 5px;
+}
+
+.search-bar input {
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.search-bar button {
+  background-color: #ffcc00;
+  color: black;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.banner img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.events {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  /* Espaciado entre tarjetas */
+  padding: 20px;
+}
+
+.event-card {
+  border: 1px solid #ddd;
+  /* Bordes de las tarjetas */
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Sombra */
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  /* Efecto al pasar el mouse */
+}
+
+.event-card img {
+  width: 100%;
+  /* La imagen ocupa todo el ancho del contenedor */
+  height: 200px;
+  /* Altura fija para todas las imágenes */
+  object-fit: cover;
+  /* Recorta las imágenes para que encajen en el espacio */
+  border-radius: 10px 10px 0 0;
+  /* Opcional: bordes redondeados para las imágenes */
+}
+
+.event-status {
+  background-color: #28a745;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.event-card h3 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.event-card p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Ajusta el margen superior para que no se superponga con la barra de navegación */
+.main-content {
+  padding-top: 80px;
+  /* Ajusta este valor según la altura de tu barra de navegación */
+}
+
+/* Estilos adicionales para mejorar la estructura */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  /* Altura de la barra de navegación */
+  background-color: #000;
+  z-index: 1000;
+  /* Asegura que esté sobre el contenido */
+}
+
+.events {
+  padding: 20px;
+  background-color: #fff;
+  max-height: 800px;
+  /* Altura máxima del contenedor */
+  overflow-y: auto;
+  /* Activa el scroll vertical */
+}
+
+.dropdown-toggle {
+  min-width: 150px;
+}
+
+.navbar {
+  background-color: #007bff !important;
+  /* Azul primario */
+}
+
+.form-control {
+  border: none;
+  box-shadow: none;
+}
+
+.btn-warning {
+  background: linear-gradient(90deg, #ffc107, #ff9800);
+}
+
+@media (max-width: 768px) {
+  .events {
+    grid-template-columns: 1fr;
+    /* Una columna para pantallas pequeñas */
   }
+}
+
+
+.image-container {
+  width: 100%;
+  height: 200px;
+  /* Ajusta según el diseño */
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-city {
+  background-color: #007bff;
+  /* Fondo azul o el que prefieras */
+  color: white;
+  /* Color de texto blanco para contraste */
+  padding: 5px 10px;
+  /* Espaciado interno */
+  font-weight: bold;
+  /* Texto en negrita */
+  text-align: center;
+  /* Centrado horizontal */
+  border-top-left-radius: 10px;
+  /* Bordes redondeados */
+  border-top-right-radius: 10px;
+  margin-bottom: -1px;
+  /* Para unir visualmente con la imagen */
+}

@@ -1,2 +1,73 @@
+<div class="container mt-5">
+    <nav class="navbar navbar-expand-lg bg-primary p-2">
+        <div class="container-fluid align-items-center">
+            <!-- Dropdown de ciudad -->
+            <div class="dropdown me-2">
+                <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="cityDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-geo-alt-fill text-warning me-2"></i> Ciudad
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="cityDropdown">
+                    <!-- Recorre dinámicamente la lista de ciudades -->
+                    <li *ngFor="let ciudad of ciudades">
+                        <a class="dropdown-item" (click)="filtrarEventosCiudad(ciudad)">{{ ciudad }}</a>
+                    </li>
+                </ul>
+            </div>
 
-<div class="container"></div>
+            <!-- Dropdown de categoría -->
+            <div class="dropdown me-2">
+                <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button"
+                    id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-grid-3x3-gap-fill text-warning me-2"></i> Categoría
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                    <li><a class="dropdown-item" href="#"
+                            (click)="filtrarEventosTipo(tiposEvento.CONCIERTO)">CONCIERTO</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="filtrarEventosTipo(tiposEvento.BELLEZA)">BELLEZA</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" (click)="filtrarEventosTipo(tiposEvento.CULTURA)">CULTURA</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" (click)="filtrarEventosTipo(tiposEvento.DEPORTE)">DEPORTES</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#"
+                            (click)="filtrarEventosTipo(tiposEvento.EDUCACION)">EDUCACION</a></li>
+                    <li><a class="dropdown-item" href="#" (click)="filtrarEventosTipo(tiposEvento.MODA)">MODA</a></li>
+                </ul>
+            </div>
+
+            <!-- Dropdown de fecha -->
+            <div class="dropdown me-2">
+                <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="dateDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-calendar-event-fill text-warning me-2"></i> Fecha
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dateDropdown">
+                    <li><a class="dropdown-item" (click)="filtrarEventosFecha(hoy)">Hoy</a></li>
+                </ul>
+            </div>
+
+            <!-- Barra de búsqueda -->
+            <form class="d-flex flex-grow-1 me-2">
+                <input class="form-control" type="text" placeholder="Buscar por nombre" aria-label="Buscar"
+                    [(ngModel)]="nombre" name="nombre" (input)="filtrarEventos(nombre)">
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="banner main-content">
+    <img src="https://eventos.tuboleta.com/hubfs/Piezas/Banner_Desplegable_Desktop.jpg"
+        alt="Banner de evento destacado">
+</div>
+
+<div class="events">
+    <div class="event-card" *ngFor="let evento of resultados" (click)="abrirEvento(evento.id)">
+        <div class="event-city">{{ evento.ciudad }}</div>
+        <div class="image-container">
+            <img [src]="evento.urlImagenPoster" alt="Imagen del evento">
+        </div>
+        <h3>{{ evento.nombre }}</h3>
+        <p>{{ evento.fecha }} - {{ evento.tipo }} </p>
+    </div>
+</div>

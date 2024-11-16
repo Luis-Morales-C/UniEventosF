@@ -8,7 +8,7 @@
     </div>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a routerLink="/" class="nav-link px-2 link-secondary">Inicio</a></li>
+
 
       <ng-container *ngIf="isAdmin">
         <li><a routerLink="/gestion-eventos" class="nav-link px-2">Gestion Eventos</a></li>
@@ -23,7 +23,8 @@
 
       <!-- Menú común para todos los usuarios logueados -->
       <li *ngIf="isLogged" class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle px-2" id="administrarCuentaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle px-2" id="administrarCuentaDropdown" role="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
           Gestionar Cuenta
         </a>
         <ul class="dropdown-menu" aria-labelledby="administrarCuentaDropdown">
@@ -40,7 +41,7 @@
       </ng-container>
 
       <ng-template #loggedIn>
-        <label class="me-3">Bienvenido {{ email }}</label>
+        <label class="me-3 text-light">Bienvenido {{ email }}</label>
         <button type="button" (click)="logout()" class="button">Salir</button>
       </ng-template>
     </div>
